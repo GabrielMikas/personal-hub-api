@@ -18,3 +18,7 @@ func Init() error {
 	}
 	return nil
 }
+
+func GetDB() *gorm.DB {
+	return db
+}

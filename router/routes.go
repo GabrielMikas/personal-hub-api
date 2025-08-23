@@ -3,12 +3,14 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 
+	"github.com/GabrielMikas/personal-hub-api/handlers"
 	cards_handler "github.com/GabrielMikas/personal-hub-api/handlers/cards"
 	investments_handler "github.com/GabrielMikas/personal-hub-api/handlers/investments"
 	savings_handler "github.com/GabrielMikas/personal-hub-api/handlers/savings"
 )
 
 func serveRoutes(router *gin.Engine) {
+	handlers.InitializeHandlers()
 	investments := router.Group("/finance/investments")
 	{
 		investments.GET("/", investments_handler.GetHandler)
