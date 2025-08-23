@@ -14,6 +14,7 @@ func serveRoutes(router *gin.Engine) {
 	investments := router.Group("/finance/investments")
 	{
 		investments.GET("/", investments_handler.GetHandler)
+		investments.GET("/:id", investments_handler.GetById)
 		investments.POST("/", investments_handler.PostHandler)
 
 	}
