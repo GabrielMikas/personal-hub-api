@@ -1,9 +1,9 @@
 package investments_handler
 
 import (
-	"fmt"
 	"net/http"
 
+	response_handlers "github.com/GabrielMikas/personal-hub-api/handlers/responses"
 	"github.com/GabrielMikas/personal-hub-api/schemas"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -12,9 +12,7 @@ import (
 func PostHandler(c *gin.Context) {
 	req := Investment{}
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
+		response_handlers.FailMessage(c, http.StatusBadRequest, err.Error())
 		return
 	}
 	investment := schemas.Investment{
@@ -29,13 +27,13 @@ func PostHandler(c *gin.Context) {
 		IsActive:     req.IsActive,
 	}
 	if err := db.Create(&investment).Error; err != nil {
-		fmt.Println("Error creating Investment:", err)
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
+		response_handlers.FailMessage(c, http.StatusInternalServerError, err.Error())
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{
-		"investment": req,
-	})
+	msg := gin.H{
+		"message":      "Investment created successfully",
+		"investmentId": investment.InvestmentId,
+	}
+	response_handlers.SuccessMessage(c, http.StatusCreated, msg)
+
 }
