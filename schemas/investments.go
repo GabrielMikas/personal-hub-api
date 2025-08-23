@@ -1,16 +1,17 @@
 package schemas
 
 type Investment struct {
-	ID           uint `gorm:"primarykey"`
-	InvestmentId string
-	Name         string
-	Type         string
-	Wallet       string
-	Amount       int32
-	Rate         float32
-	BoughtAt     string
-	ExpiresAt    string
-	IsActive     bool
+	ID           uint    `gorm:"primarykey"`
+	InvestmentId string  `gorm:"not null"`
+	Name         string  `gorm:"not null"`
+	Description  string  `gorm:"not null"`
+	Type         string  `gorm:"not null"`
+	Wallet       string  `gorm:"not null"`
+	Amount       int32   `gorm:"not null"`
+	Rate         float32 `gorm:"not null"`
+	BoughtAt     string  `gorm:"not null"`
+	ExpiresAt    string  `gorm:"not null"`
+	IsActive     bool    `gorm:"not null"`
 }
 
 func (Investment) TableName() string {

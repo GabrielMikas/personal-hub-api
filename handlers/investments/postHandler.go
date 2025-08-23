@@ -18,6 +18,7 @@ func PostHandler(c *gin.Context) {
 	investment := schemas.Investment{
 		InvestmentId: uuid.New().String(),
 		Name:         req.Name,
+		Description:  req.Description,
 		Type:         req.Type,
 		Wallet:       req.Wallet,
 		Amount:       req.Amount,
