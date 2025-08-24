@@ -23,7 +23,10 @@ func serveRoutes(router *gin.Engine) {
 	savings := router.Group("/finance/savings")
 	{
 		savings.GET("/", savings_handler.GetHandler)
+		savings.GET("/:id", savings_handler.GetById)
 		savings.POST("/", savings_handler.PostHandler)
+		savings.DELETE("/:id", savings_handler.DeleteHandler)
+		savings.PATCH("/:id", savings_handler.PatchHandler)
 	}
 	cards := router.Group("/hobbies/cards")
 	{
