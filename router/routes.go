@@ -31,6 +31,9 @@ func serveRoutes(router *gin.Engine) {
 	cards := router.Group("/hobbies/cards")
 	{
 		cards.GET("/", cards_handler.GetHandler)
+		cards.GET("/:id", cards_handler.GetById)
+		cards.DELETE("/:id", cards_handler.DeleteHandler)
+		cards.PATCH("/:id", cards_handler.PatchHandler)
 		cards.POST("/", cards_handler.PostHandler)
 	}
 }

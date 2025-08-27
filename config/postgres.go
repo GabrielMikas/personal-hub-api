@@ -27,7 +27,7 @@ func initializePostgres() (*gorm.DB, error) {
 		fmt.Println("Error opening database:", err)
 	}
 
-	err = db.AutoMigrate(&schemas.Investment{}, &schemas.Saving{})
+	err = db.AutoMigrate(&schemas.Investment{}, &schemas.Saving{}, &schemas.Card{}, &schemas.Collection{})
 	if err != nil {
 		fmt.Println("Error running migration:", err)
 	}
