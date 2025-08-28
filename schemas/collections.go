@@ -5,6 +5,7 @@ type Collection struct {
 	CollectionId string `gorm:"not null"`
 	Name         string `gorm:"not null"`
 	Description  string
+	Type         string `gorm:"not null"`
 	LaunchYear   string `gorm:"not null"`
 }
 

@@ -5,6 +5,7 @@ import (
 
 	"github.com/GabrielMikas/personal-hub-api/handlers"
 	cards_handler "github.com/GabrielMikas/personal-hub-api/handlers/cards"
+	collections_handlers "github.com/GabrielMikas/personal-hub-api/handlers/collections"
 	investments_handler "github.com/GabrielMikas/personal-hub-api/handlers/investments"
 	savings_handler "github.com/GabrielMikas/personal-hub-api/handlers/savings"
 )
@@ -35,5 +36,12 @@ func serveRoutes(router *gin.Engine) {
 		cards.DELETE("/:id", cards_handler.DeleteHandler)
 		cards.PATCH("/:id", cards_handler.PatchHandler)
 		cards.POST("/", cards_handler.PostHandler)
+	}
+	collections := router.Group("/hobbies/cards/collections")
+	{
+		collections.GET("/", collections_handlers.GetHandler)
+		collections.GET("/:id", collections_handlers.GetById)
+		collections.POST("/", collections_handlers.PostHandler)
+		collections.PATCH("/:id", collections_handlers.PatchHandler)
 	}
 }

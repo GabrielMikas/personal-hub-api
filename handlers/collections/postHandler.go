@@ -21,6 +21,7 @@ func PostHandler(c *gin.Context) {
 		Name:         req.Name,
 		Description:  req.Description,
 		LaunchYear:   req.LaunchYear,
+		Type:         req.Type,
 	}
 
 	if err := db.Create(&collection).Error; err != nil {
