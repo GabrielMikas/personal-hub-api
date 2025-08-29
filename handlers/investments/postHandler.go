@@ -23,6 +23,7 @@ func PostHandler(c *gin.Context) {
 		Wallet:       req.Wallet,
 		Amount:       req.Amount,
 		Rate:         req.Rate,
+		Liquidity:    req.Liquidity,
 		BoughtAt:     req.BoughtAt,
 		ExpiresAt:    req.ExpiresAt,
 		IsActive:     req.IsActive,
