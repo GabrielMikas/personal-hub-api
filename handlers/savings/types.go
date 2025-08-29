@@ -7,6 +7,7 @@ type Saving struct {
 	Wallet      string  `json:"wallet" binding:"required"`
 	Amount      int32   `json:"amount" binding:"required"`
 	Rate        float32 `json:"rate" binding:"required"`
+	Liquidity   string  `json:"liquidity" binding:"required"`
 	BoughtAt    string  `json:"boughtAt" binding:"required"`
 	ExpiresAt   string  `json:"expiresAt" binding:"required"`
 	IsActive    bool    `json:"isActive" binding:"required"`

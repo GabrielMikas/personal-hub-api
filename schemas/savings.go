@@ -9,6 +9,7 @@ type Saving struct {
 	Wallet      string  `gorm:"not null"`
 	Amount      int32   `gorm:"not null"`
 	Rate        float32 `gorm:"not null"`
+	Liquidity   string  `gorm:"not null"`
 	BoughtAt    string  `gorm:"not null"`
 	ExpiresAt   string  `gorm:"not null"`
 	IsActive    bool    `gorm:"not null"`
