@@ -1,4 +1,4 @@
-package cards_handler
+package collections_handlers
 
 import (
 	"net/http"
@@ -9,13 +9,13 @@ import (
 )
 
 func GetHandler(c *gin.Context) {
-	cards := []schemas.Card{}
-	if err := db.Find(&cards).Error; err != nil {
+	collections := []schemas.Collection{}
+	if err := db.Find(&collections).Error; err != nil {
 		response_handlers.FailMessage(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 	msg := gin.H{
-		"data": cards,
+		"data": collections,
 	}
 	response_handlers.SuccessMessage(c, http.StatusOK, msg)
 }
