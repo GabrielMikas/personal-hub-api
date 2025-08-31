@@ -8,10 +8,12 @@ type Card struct {
 	CollectionId string `gorm:"not null"`
 	Type         string `gorm:"not null"`
 	CardCode     string `gorm:"not null"`
+	ImageUrl     string
 	Amount       int32  `gorm:"not null"`
 	Rarity       string `gorm:"not null"`
 	BoughtAt     string `gorm:"not null"`
 	IsSleeved    bool   `gorm:"not null"`
+	IsInBinder   bool   `gorm:"not null"`
 }
 
 func (Card) TableName() string {
