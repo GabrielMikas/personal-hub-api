@@ -1,8 +1,6 @@
 package collections_handlers
 
 import (
-	"net/http"
-
 	response_handlers "github.com/GabrielMikas/personal-hub-api/handlers/responses"
 	"github.com/GabrielMikas/personal-hub-api/schemas"
 	"github.com/gin-gonic/gin"
@@ -15,14 +13,14 @@ func GetById(c *gin.Context) {
 	collection := schemas.Collection{}
 	if err := db.Where("collection_id = ?", id).First(&collection).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			response_handlers.FailMessage(c, http.StatusNotFound, err.Error())
+			response_handlers.NotFound(c, err.Error())
 			return
 		}
-		response_handlers.FailMessage(c, http.StatusInternalServerError, err.Error())
+		response_handlers.InternalServerError(c, err.Error())
 		return
 	}
 	msg := gin.H{
 		"data": collection,
 	}
-	response_handlers.SuccessMessage(c, http.StatusOK, msg)
+	response_handlers.Ok(c, msg)
 }
