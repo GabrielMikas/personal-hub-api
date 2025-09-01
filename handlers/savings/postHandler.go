@@ -1,8 +1,6 @@
 package savings_handler
 
 import (
-	"net/http"
-
 	response_handlers "github.com/GabrielMikas/personal-hub-api/handlers/responses"
 	"github.com/GabrielMikas/personal-hub-api/schemas"
 	"github.com/gin-gonic/gin"
@@ -12,7 +10,7 @@ import (
 func PostHandler(c *gin.Context) {
 	req := Saving{}
 	if err := c.ShouldBindJSON(&req); err != nil {
-		response_handlers.FailMessage(c, http.StatusBadRequest, err.Error())
+		response_handlers.BadRequest(c, err.Error())
 		return
 	}
 	saving := schemas.Saving{
@@ -29,13 +27,13 @@ func PostHandler(c *gin.Context) {
 		IsActive:    req.IsActive,
 	}
 	if err := db.Create(&saving).Error; err != nil {
-		response_handlers.FailMessage(c, http.StatusInternalServerError, err.Error())
+		response_handlers.InternalServerError(c, err.Error())
 		return
 	}
 	msg := gin.H{
 		"message":  "Saving created successfully",
 		"savingId": saving.SavingId,
 	}
-	response_handlers.SuccessMessage(c, http.StatusCreated, msg)
+	response_handlers.Created(c, msg)
 
 }
