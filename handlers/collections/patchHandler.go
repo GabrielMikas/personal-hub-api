@@ -12,13 +12,13 @@ func PatchHandler(c *gin.Context) {
 	var updates map[string]interface{}
 
 	if err := c.ShouldBindJSON(&updates); err != nil {
-		response_handlers.BadRequest(c, err.Error())
+		response_handlers.BadRequest(c, err)
 		return
 	}
 
 	if err := db.Model(&schemas.Collection{}).Where("collection_id = ?", id).Updates(&updates).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			response_handlers.NotFound(c, err.Error())
+			response_handlers.NotFound(c, err)
 			return
 		}
 		response_handlers.InternalServerError(c, err.Error())

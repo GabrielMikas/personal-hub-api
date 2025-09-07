@@ -13,7 +13,7 @@ func GetById(c *gin.Context) {
 	saving := schemas.Saving{}
 	if err := db.Where("saving_id = ?", id).First(&saving).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			response_handlers.NotFound(c, err.Error())
+			response_handlers.NotFound(c, err)
 			return
 		}
 		response_handlers.InternalServerError(c, err.Error())

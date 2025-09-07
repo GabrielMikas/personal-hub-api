@@ -11,14 +11,14 @@ import (
 func PostHandler(c *gin.Context) {
 	req := Card{}
 	if err := c.ShouldBindJSON(&req); err != nil {
-		response_handlers.BadRequest(c, err.Error())
+		response_handlers.BadRequest(c, err)
 		return
 	}
 
 	collection := schemas.Collection{}
 	if err := db.Where("collection_id = ?", req.CollectionId).First(&collection).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			response_handlers.NotFound(c, err.Error())
+			response_handlers.NotFound(c, err)
 			return
 		}
 		response_handlers.InternalServerError(c, err.Error())

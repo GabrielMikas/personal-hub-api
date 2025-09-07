@@ -10,7 +10,7 @@ import (
 func PostHandler(c *gin.Context) {
 	req := Collection{}
 	if err := c.ShouldBindJSON(&req); err != nil {
-		response_handlers.BadRequest(c, err.Error())
+		response_handlers.BadRequest(c, err)
 		return
 	}
 

@@ -6,10 +6,24 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func NotFound(c *gin.Context, msg any) {
-	c.JSON(http.StatusNotFound, msg)
+func NotFound(c *gin.Context, err error) {
+	mappedDetails := gin.H{
+		"error": err.Error(),
+	}
+	mappedErr := gin.H{
+		"detail": mappedDetails,
+		"error":  "mrn:personalhub:error:notfound",
+	}
+	c.JSON(http.StatusNotFound, mappedErr)
 }
 
-func BadRequest(c *gin.Context, msg any) {
-	c.JSON(http.StatusBadRequest, msg)
+func BadRequest(c *gin.Context, err error) {
+	mappedDetails := gin.H{
+		"error": err.Error(),
+	}
+	mappedErr := gin.H{
+		"detail": mappedDetails,
+		"error":  "mrn:personalhub:error:badrequest",
+	}
+	c.JSON(http.StatusBadRequest, mappedErr)
 }

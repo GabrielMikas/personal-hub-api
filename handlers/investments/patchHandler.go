@@ -11,7 +11,7 @@ func PatchHandler(c *gin.Context) {
 
 	if err := db.Where("investment_id = ?", id).Update("is_active", gorm.Expr("NOT is_active")).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			response_handlers.NotFound(c, err.Error())
+			response_handlers.NotFound(c, err)
 			return
 		}
 		response_handlers.InternalServerError(c, err.Error())
