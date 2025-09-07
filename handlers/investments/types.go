@@ -2,7 +2,7 @@ package investments_handler
 
 type Investment struct {
 	Name        string  `json:"name" binding:"required"`
-	Description string  `json:"description" binding:"required"`
+	Description string  `json:"description"`
 	Type        string  `json:"type" binding:"required"`
 	Wallet      string  `json:"wallet" binding:"required"`
 	Amount      int32   `json:"amount" binding:"required"`

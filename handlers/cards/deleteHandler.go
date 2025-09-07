@@ -1,8 +1,6 @@
 package cards_handler
 
 import (
-	"net/http"
-
 	response_handlers "github.com/GabrielMikas/personal-hub-api/handlers/responses"
 	"github.com/GabrielMikas/personal-hub-api/schemas"
 	"github.com/gin-gonic/gin"
@@ -14,14 +12,14 @@ func DeleteHandler(c *gin.Context) {
 
 	if err := db.Where("card_id = ?", id).Delete(&schemas.Card{}).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			response_handlers.FailMessage(c, http.StatusNotFound, err.Error())
+			response_handlers.NotFound(c, err)
 			return
 		}
-		response_handlers.FailMessage(c, http.StatusInternalServerError, err.Error())
+		response_handlers.InternalServerError(c, err.Error())
 	}
 	msg := gin.H{
 		"message": "Card deleted succesfully",
 		"cardId":  id,
 	}
-	response_handlers.SuccessMessage(c, http.StatusAccepted, msg)
+	response_handlers.Accepted(c, msg)
 }

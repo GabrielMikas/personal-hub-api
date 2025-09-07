@@ -1,8 +1,6 @@
 package cards_handler
 
 import (
-	"net/http"
-
 	response_handlers "github.com/GabrielMikas/personal-hub-api/handlers/responses"
 	"github.com/GabrielMikas/personal-hub-api/schemas"
 	"github.com/gin-gonic/gin"
@@ -13,17 +11,17 @@ import (
 func PostHandler(c *gin.Context) {
 	req := Card{}
 	if err := c.ShouldBindJSON(&req); err != nil {
-		response_handlers.FailMessage(c, http.StatusBadRequest, err.Error())
+		response_handlers.BadRequest(c, err)
 		return
 	}
 
 	collection := schemas.Collection{}
 	if err := db.Where("collection_id = ?", req.CollectionId).First(&collection).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			response_handlers.FailMessage(c, http.StatusNotFound, err.Error())
+			response_handlers.NotFound(c, err)
 			return
 		}
-		response_handlers.FailMessage(c, http.StatusInternalServerError, err.Error())
+		response_handlers.InternalServerError(c, err.Error())
 		return
 	}
 
@@ -34,20 +32,22 @@ func PostHandler(c *gin.Context) {
 		CollectionId: req.CollectionId,
 		Type:         req.Type,
 		CardCode:     req.CardCode,
+		ImageUrl:     req.ImageUrl,
 		Amount:       req.Amount,
 		Rarity:       req.Rarity,
 		BoughtAt:     req.BoughtAt,
 		IsSleeved:    req.IsSleeved,
+		IsInBinder:   req.IsInBinder,
 	}
 
 	if err := db.Create(&card).Error; err != nil {
-		response_handlers.FailMessage(c, http.StatusInternalServerError, err.Error())
+		response_handlers.InternalServerError(c, err.Error())
 		return
 	}
 	msg := gin.H{
 		"message": "Card created successfully",
 		"cardId":  card.CardId,
 	}
-	response_handlers.SuccessMessage(c, http.StatusCreated, msg)
+	response_handlers.Created(c, msg)
 
 }
